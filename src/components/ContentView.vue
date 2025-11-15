@@ -70,7 +70,7 @@
 
 <script>
 import { sectionComponentMap, getSectionTitle } from '../data/sectionComponents.js';
-import { defineAsyncComponent } from 'vue';
+import { defineAsyncComponent, markRaw } from 'vue';
 
 export default {
   name: 'ContentView',
@@ -99,7 +99,7 @@ export default {
       immediate: true,
       handler(newSection) {
         if (newSection && sectionComponentMap[newSection]) {
-          this.sectionComponent = defineAsyncComponent(sectionComponentMap[newSection]);
+          this.sectionComponent = markRaw(defineAsyncComponent(sectionComponentMap[newSection]));
         } else {
           this.sectionComponent = null;
         }
