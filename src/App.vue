@@ -23,10 +23,9 @@
         </div>
 
         <ContentView
-          :current-content="currentContent"
-          :previous-chapter="previousChapter"
-          :next-chapter="nextChapter"
-          @navigate-to-chapter="handleChapterSelect"
+          :selected-section="selectedSection"
+          :selected-chapter="selectedChapter"
+          @navigate-to-section="handleSectionSelect"
         />
       </div>
     </div>

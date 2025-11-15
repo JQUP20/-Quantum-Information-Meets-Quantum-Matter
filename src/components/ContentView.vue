@@ -1,27 +1,17 @@
 <template>
   <div class="content-view">
-    <div v-if="currentContent" class="content-wrapper">
+    <div v-if="selectedSection" class="content-wrapper">
       <div class="content-header">
         <div class="breadcrumb">
           <span class="breadcrumb-home">Quantum Information Meets Quantum Matter</span>
           <span class="breadcrumb-separator">/</span>
-          <span class="breadcrumb-current">{{ currentContent.title }}</span>
+          <span class="breadcrumb-current">{{ sectionTitle }}</span>
         </div>
       </div>
 
-      <div class="content-body" v-html="currentContent.content"></div>
-
-      <div class="content-footer">
-        <div class="navigation-buttons">
-          <button v-if="previousChapter" @click="navigateToChapter(previousChapter)" class="nav-btn prev-btn">
-            <span class="nav-arrow">←</span>
-            <span class="nav-text">Previous Chapter</span>
-          </button>
-          <button v-if="nextChapter" @click="navigateToChapter(nextChapter)" class="nav-btn next-btn">
-            <span class="nav-text">Next Chapter</span>
-            <span class="nav-arrow">→</span>
-          </button>
-        </div>
+      <div class="content-body">
+        <component :is="sectionComponent" v-if="sectionComponent" />
+        <div v-else class="loading">Loading section...</div>
       </div>
     </div>
 
@@ -79,25 +69,48 @@
 </template>
 
 <script>
+import { sectionComponentMap, getSectionTitle } from '../data/sectionComponents.js';
+import { defineAsyncComponent } from 'vue';
+
 export default {
   name: 'ContentView',
   props: {
-    currentContent: {
-      type: Object,
-      default: null
-    },
-    previousChapter: {
+    selectedSection: {
       type: String,
-      default: null
+      default: ''
     },
-    nextChapter: {
+    selectedChapter: {
       type: String,
-      default: null
+      default: ''
     }
   },
-  methods: {
-    navigateToChapter(chapterId) {
-      this.$emit('navigate-to-chapter', chapterId);
+  data() {
+    return {
+      sectionComponent: null
+    };
+  },
+  computed: {
+    sectionTitle() {
+      return getSectionTitle(this.selectedSection);
+    }
+  },
+  watch: {
+    selectedSection: {
+      immediate: true,
+      handler(newSection) {
+        if (newSection && sectionComponentMap[newSection]) {
+          this.sectionComponent = defineAsyncComponent(sectionComponentMap[newSection]);
+        } else {
+          this.sectionComponent = null;
+        }
+        // Scroll to top when section changes
+        this.$nextTick(() => {
+          const contentView = this.$el;
+          if (contentView) {
+            contentView.scrollTop = 0;
+          }
+        });
+      }
     }
   }
 };

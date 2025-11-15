@@ -1,0 +1,145 @@
+.section-content {
+  line-height: 1.8;
+  color: #2d3748;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a202c;
+  margin: 2rem 0 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid #667eea;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 2rem 0 1rem;
+  padding-top: 1rem;
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin: 1.5rem 0 0.75rem;
+}
+
+h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #4a5568;
+  margin: 1rem 0 0.5rem;
+}
+
+p {
+  margin: 1rem 0;
+  text-align: justify;
+}
+
+ul, ol {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+li {
+  margin: 0.5rem 0;
+}
+
+.equation {
+  background: #f8f9fa;
+  border-left: 4px solid #667eea;
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  font-family: 'Courier New', monospace;
+  font-size: 1.05rem;
+  overflow-x: auto;
+  border-radius: 0 4px 4px 0;
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+  border-left: 4px solid #667eea;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.info-box {
+  background: #f0f4ff;
+  border-left: 4px solid #4299e1;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.note-box {
+  background: #fffaf0;
+  border-left: 4px solid #ed8936;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.comparison-box {
+  background: #f7f9fc;
+  border: 2px solid #667eea;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+}
+
+.preview-box {
+  background: #e6fffa;
+  border-left: 4px solid #38b2ac;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.table-container {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+
+.probability-table,
+.comparison-table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  min-width: 300px;
+}
+
+.probability-table th,
+.probability-table td,
+.comparison-table th,
+.comparison-table td {
+  border: 1px solid #cbd5e0;
+  padding: 0.75rem 1rem;
+  text-align: left;
+}
+
+.probability-table th,
+.comparison-table th {
+  background: #667eea;
+  color: white;
+  font-weight: 600;
+}
+
+.probability-table tr:nth-child(even),
+.comparison-table tr:nth-child(even) {
+  background: #f7fafc;
+}
+
+.probability-table tr:hover,
+.comparison-table tr:hover {
+  background: #edf2f7;
+}
+
+.loading {
+  text-align: center;
+  padding: 3rem;
+  font-size: 1.2rem;
+  color: #718096;
+}
