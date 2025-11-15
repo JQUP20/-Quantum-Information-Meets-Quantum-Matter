@@ -152,4 +152,6 @@ export default {
 };
 </script>
 
-<style scoped src="../../../styles/section-styles.css"></style>
+<style scoped>
+@import '../../../styles/section-styles.css';
+</style>
