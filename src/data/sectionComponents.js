@@ -26,6 +26,18 @@ export const sectionComponentMap = {
   '2.5.1': () => import('../components/sections/Chapter_2_5_1.vue'),
   '2.5.2': () => import('../components/sections/Chapter_2_5_2.vue'),
   '2.6': () => import('../components/sections/Chapter_2_6.vue'),
+
+  // Chapter 3
+  '3.1': () => import('../components/sections/Chapter_3_1.vue'),
+  '3.2.1': () => import('../components/sections/Chapter_3_2_1.vue'),
+  '3.2.2': () => import('../components/sections/Chapter_3_2_2.vue'),
+  '3.2.3': () => import('../components/sections/Chapter_3_2_3.vue'),
+  '3.3': () => import('../components/sections/Chapter_3_3.vue'),
+  '3.4.1': () => import('../components/sections/Chapter_3_4_1.vue'),
+  '3.4.2': () => import('../components/sections/Chapter_3_4_2.vue'),
+  '3.4.3': () => import('../components/sections/Chapter_3_4_3.vue'),
+  '3.5': () => import('../components/sections/Chapter_3_5.vue'),
+  '3.6': () => import('../components/sections/Chapter_3_6.vue'),
 };
 
 // 获取section的标题
@@ -57,6 +69,18 @@ export function getSectionTitle(sectionId) {
     '2.5.1': '2.5.1 The Lindblad Form',
     '2.5.2': '2.5.2 Master Equations for a Single Qubit',
     '2.6': '2.6 Summary and Further Reading',
+
+    // Chapter 3
+    '3.1': '3.1 Introduction',
+    '3.2.1': '3.2.1 Bit Flip Code',
+    '3.2.2': '3.2.2 Shor\'s Code',
+    '3.2.3': '3.2.3 Other Noise Models',
+    '3.3': '3.3 Quantum Error-Correcting Criteria, Code Distance',
+    '3.4.1': '3.4.1 Shor\'s Code (Stabilizer Form)',
+    '3.4.2': '3.4.2 The Stabilizer Formalism',
+    '3.4.3': '3.4.3 Stabilizer States and Graph States',
+    '3.5': '3.5 Toric Code',
+    '3.6': '3.6 Summary and Further Reading',
   };
   return titles[sectionId] || sectionId;
 }
