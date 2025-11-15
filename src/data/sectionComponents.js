@@ -71,6 +71,28 @@ export const sectionComponentMap = {
   '5.5': () => import('../components/sections/Chapter_5_5.vue'),
   '5.6': () => import('../components/sections/Chapter_5_6.vue'),
   '5.7': () => import('../components/sections/Chapter_5_7.vue'),
+
+  // Chapter 6
+  '6.1.1': () => import('../components/sections/Chapter_6_1_1.vue'),
+  '6.1.2': () => import('../components/sections/Chapter_6_1_2.vue'),
+  '6.1.3': () => import('../components/sections/Chapter_6_1_3.vue'),
+  '6.1.4': () => import('../components/sections/Chapter_6_1_4.vue'),
+  '6.2.1': () => import('../components/sections/Chapter_6_2_1.vue'),
+  '6.3.1': () => import('../components/sections/Chapter_6_3_1.vue'),
+  '6.3.2': () => import('../components/sections/Chapter_6_3_2.vue'),
+  '6.4.1': () => import('../components/sections/Chapter_6_4_1.vue'),
+  '6.4.2': () => import('../components/sections/Chapter_6_4_2.vue'),
+  '6.5': () => import('../components/sections/Chapter_6_5.vue'),
+  '6.6': () => import('../components/sections/Chapter_6_6.vue'),
+  '6.7.1': () => import('../components/sections/Chapter_6_7_1.vue'),
+  '6.7.2': () => import('../components/sections/Chapter_6_7_2.vue'),
+  '6.8': () => import('../components/sections/Chapter_6_8.vue'),
+  '6.9.1': () => import('../components/sections/Chapter_6_9_1.vue'),
+  '6.9.2': () => import('../components/sections/Chapter_6_9_2.vue'),
+  '6.9.3': () => import('../components/sections/Chapter_6_9_3.vue'),
+  '6.9.4': () => import('../components/sections/Chapter_6_9_4.vue'),
+  '6.9.5': () => import('../components/sections/Chapter_6_9_5.vue'),
+  '6.10': () => import('../components/sections/Chapter_6_10.vue'),
 };
 
 // 获取section的标题
@@ -147,6 +169,28 @@ export function getSectionTitle(sectionId) {
     '5.5': '5.5 Gapped Ground States as Quantum-Error-Correcting Codes',
     '5.6': '5.6 Entanglement in Gapless Systems',
     '5.7': '5.7 Summary and Further Reading',
+
+    // Chapter 6
+    '6.1.1': '6.1.1 Landau\'s Symmetry Breaking Theory',
+    '6.1.2': '6.1.2 Quantum Phases and Phase Transitions',
+    '6.1.3': '6.1.3 Physical Ways to Understand Symmetry Breaking in Quantum Theory',
+    '6.1.4': '6.1.4 Compare Finite-Temperature and Zero-Temperature Phases',
+    '6.2.1': '6.2.1 Discovery of Topological Order',
+    '6.3.1': '6.3.1 Topological Ground State Degeneracy',
+    '6.3.2': '6.3.2 Non-Abelian Geometric Phase',
+    '6.4.1': '6.4.1 Essence of FQHE',
+    '6.4.2': '6.4.2 Intuitive Pictures of Topological Order',
+    '6.5': '6.5 Significance of Topological Order',
+    '6.6': '6.6 Quantum Liquids of Unoriented Strings',
+    '6.7.1': '6.7.1 Emergence of Fractional Angular Momenta',
+    '6.7.2': '6.7.2 Emergence of Fermi and Fractional Statistics',
+    '6.8': '6.8 Topological Degeneracy of Unoriented String Liquid',
+    '6.9.1': '6.9.1 Toric Code Model and String Condensation',
+    '6.9.2': '6.9.2 Local and Topological Excitations',
+    '6.9.3': '6.9.3 Three Types of Quasiparticles',
+    '6.9.4': '6.9.4 Three Types of String Operators',
+    '6.9.5': '6.9.5 Statistics of Ends of Strings',
+    '6.10': '6.10 Summary and Further Reading',
   };
   return titles[sectionId] || sectionId;
 }
