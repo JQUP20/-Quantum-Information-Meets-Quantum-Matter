@@ -95,7 +95,7 @@
 
       <p><strong>Setup:</strong> N identical bosons with Hamiltonian:</p>
       <div class="equation">
-        H = Σ_{i=1}^N h(i) + Σ_{i<j} V(i,j)
+        H = Σ_{i=1}^N h(i) + Σ_{i&lt;j} V(i,j)
       </div>
 
       <p><strong>Key observation:</strong> Ground state |ψ₀⟩ is automatically permutation-symmetric!</p>

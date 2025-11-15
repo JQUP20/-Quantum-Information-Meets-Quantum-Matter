@@ -71,7 +71,7 @@
       <ol>
         <li><strong>Jordan-Wigner transformation:</strong>
           <div class="equation">
-            c_j† = σ_j^+ ∏_{i<j} σ_i^z, &nbsp;&nbsp; c_j = σ_j^- ∏_{i<j} σ_i^z
+            c_j† = σ_j^+ ∏_{i&lt;j} σ_i^z, &nbsp;&nbsp; c_j = σ_j^- ∏_{i&lt;j} σ_i^z
           </div>
         </li>
         <li><strong>Fermionic Hamiltonian:</strong>

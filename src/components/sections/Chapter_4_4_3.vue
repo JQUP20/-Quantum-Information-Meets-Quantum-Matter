@@ -20,7 +20,7 @@
 
       <p><strong>Why 2-RDM?</strong> Most physical Hamiltonians involve only 1- and 2-body interactions:</p>
       <div class="equation">
-        H = Σ_i h_i^{(1)} + Σ_{i<j} h_{ij}^{(2)}
+        H = Σ_i h_i^{(1)} + Σ_{i&lt;j} h_{ij}^{(2)}
       </div>
       <p>Energy fully determined by ρ^{(1)} and ρ^{(2)}:</p>
       <div class="equation">
