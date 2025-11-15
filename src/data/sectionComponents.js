@@ -38,6 +38,20 @@ export const sectionComponentMap = {
   '3.4.3': () => import('../components/sections/Chapter_3_4_3.vue'),
   '3.5': () => import('../components/sections/Chapter_3_5.vue'),
   '3.6': () => import('../components/sections/Chapter_3_6.vue'),
+
+  // Chapter 4
+  '4.1': () => import('../components/sections/Chapter_4_1.vue'),
+  '4.2': () => import('../components/sections/Chapter_4_2.vue'),
+  '4.3.1': () => import('../components/sections/Chapter_4_3_1.vue'),
+  '4.3.2': () => import('../components/sections/Chapter_4_3_2.vue'),
+  '4.4.1': () => import('../components/sections/Chapter_4_4_1.vue'),
+  '4.4.2': () => import('../components/sections/Chapter_4_4_2.vue'),
+  '4.4.3': () => import('../components/sections/Chapter_4_4_3.vue'),
+  '4.4.4': () => import('../components/sections/Chapter_4_4_4.vue'),
+  '4.5.1': () => import('../components/sections/Chapter_4_5_1.vue'),
+  '4.5.2': () => import('../components/sections/Chapter_4_5_2.vue'),
+  '4.5.3': () => import('../components/sections/Chapter_4_5_3.vue'),
+  '4.6': () => import('../components/sections/Chapter_4_6.vue'),
 };
 
 // 获取section的标题
@@ -81,6 +95,20 @@ export function getSectionTitle(sectionId) {
     '3.4.3': '3.4.3 Stabilizer States and Graph States',
     '3.5': '3.5 Toric Code',
     '3.6': '3.6 Summary and Further Reading',
+
+    // Chapter 4
+    '4.1': '4.1 Introduction',
+    '4.2': '4.2 Many-Body Hilbert Space',
+    '4.3.1': '4.3.1 Examples of Local Hamiltonians',
+    '4.3.2': '4.3.2 Effect of Locality: Lieb-Robinson Bound and Area Law',
+    '4.4.1': '4.4.1 The Local Hamiltonian Problem',
+    '4.4.2': '4.4.2 The Quantum Marginal Problem',
+    '4.4.3': '4.4.3 The N-Representability Problem',
+    '4.4.4': '4.4.4 de Finetti Theorem and Mean-Field Bosonic Systems',
+    '4.5.1': '4.5.1 Examples of Frustration-Free Hamiltonians',
+    '4.5.2': '4.5.2 The Frustration-Free Hamiltonians Problem',
+    '4.5.3': '4.5.3 The 2-Local Frustration-Free Hamiltonians',
+    '4.6': '4.6 Summary and Further Reading',
   };
   return titles[sectionId] || sectionId;
 }
