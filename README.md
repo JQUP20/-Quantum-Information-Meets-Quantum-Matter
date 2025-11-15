@@ -15,17 +15,47 @@ An interactive web-based research system for exploring quantum information theor
 ```
 ├── src/
 │   ├── components/
+│   │   ├── sections/            # Individual section components
+│   │   │   ├── Chapter_1_1.vue  # Section 1.1 Introduction
+│   │   │   ├── Chapter_1_2_1.vue # Section 1.2.1
+│   │   │   └── ...              # Other sections
 │   │   ├── Sidebar.vue          # Left sidebar navigation
 │   │   └── ContentView.vue      # Main content display area
 │   ├── data/
 │   │   ├── tableOfContents.js   # Complete book structure
-│   │   └── contentData.js       # Chapter content
+│   │   ├── sectionComponents.js # Section-to-component mapping
+│   │   └── contentData.js       # Legacy content storage
+│   ├── styles/
+│   │   └── section-styles.css   # Common styles for sections
 │   ├── App.vue                  # Main application component
 │   └── main.js                  # Application entry point
 ├── index.html                   # HTML template
 ├── vite.config.js              # Vite configuration
 └── package.json                # Project dependencies
 ```
+
+## Architecture
+
+### Component-Based Section System
+
+Each section is implemented as a separate Vue component in `src/components/sections/`:
+- `Chapter_1_1.vue` → Section 1.1 Introduction
+- `Chapter_1_2_1.vue` → Section 1.2.1 Joint Probability
+- `Chapter_1_3_1.vue` → Section 1.3.1 Pure and Mixed Quantum States
+- etc.
+
+Benefits:
+- **Modularity**: Each section is independent and self-contained
+- **Maintainability**: Easy to update individual sections
+- **Scalability**: Simple to add new sections
+- **Performance**: Lazy loading with dynamic imports
+
+### Navigation Flow
+
+1. User clicks a section in the sidebar
+2. `App.vue` receives the section ID (e.g., "1.2.1")
+3. `ContentView.vue` dynamically loads the corresponding component
+4. Section component renders with shared styles
 
 ## Getting Started
 
@@ -86,21 +116,75 @@ The system covers 11 chapters across 5 main parts:
 
 ## Customization
 
-### Adding New Content
+### Adding a New Section Component
 
-To add content for additional chapters, edit `src/data/contentData.js`:
+To add content for a new section:
+
+1. **Create the Vue component** in `src/components/sections/`:
+
+```vue
+<!-- src/components/sections/Chapter_X_Y_Z.vue -->
+<template>
+  <div class="section-content">
+    <h1>X.Y.Z Section Title</h1>
+
+    <h2>Subsection</h2>
+    <p>Your content here...</p>
+
+    <div class="equation">
+      E = mc²
+    </div>
+
+    <div class="highlight-box">
+      <h3>Key Concept</h3>
+      <p>Important information...</p>
+    </div>
+
+    <div class="info-box">
+      <p>Additional details...</p>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Chapter_X_Y_Z'
+};
+</script>
+
+<style scoped src="../../../styles/section-styles.css"></style>
+```
+
+2. **Register the component** in `src/data/sectionComponents.js`:
 
 ```javascript
-export const contentData = {
-  "chapterId": {
-    title: "Chapter Title",
-    content: `
-      <h1>Chapter Title</h1>
-      <p>Your content here...</p>
-    `
-  }
+export const sectionComponentMap = {
+  // ... existing mappings
+  'X.Y.Z': () => import('../components/sections/Chapter_X_Y_Z.vue'),
 };
+
+// Add title mapping
+export function getSectionTitle(sectionId) {
+  const titles = {
+    // ... existing titles
+    'X.Y.Z': 'X.Y.Z Your Section Title',
+  };
+  return titles[sectionId] || sectionId;
+}
 ```
+
+3. **Add to table of contents** in `src/data/tableOfContents.js` (if needed)
+
+### Available Styling Classes
+
+The `section-styles.css` provides these classes:
+- `.highlight-box` - Purple gradient background for key concepts
+- `.info-box` - Blue background for additional information
+- `.note-box` - Orange background for important notes
+- `.comparison-box` - Border box for comparisons
+- `.preview-box` - Teal background for previews
+- `.equation` - Formatted equation display
+- `.probability-table` - Styled probability tables
 
 ### Modifying the Table of Contents
 
