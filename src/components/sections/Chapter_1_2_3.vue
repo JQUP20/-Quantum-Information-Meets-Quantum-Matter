@@ -59,5 +59,5 @@ export default {
 </script>
 
 <style scoped>
-@import '../../../styles/section-styles.css';
+@import '../../styles/section-styles.css';
 </style>
