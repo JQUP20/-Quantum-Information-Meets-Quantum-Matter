@@ -132,7 +132,7 @@
         H_total = H_S + H_B + H_SB
       </div>
       <p>Through second-order perturbation theory and tracing over bath, one derives the Lindblad form.</p>
-    </note-box>
+    </div>
 
     <h2>Connection to Kraus Operators</h2>
     <div class="highlight-box">
