@@ -52,6 +52,25 @@ export const sectionComponentMap = {
   '4.5.2': () => import('../components/sections/Chapter_4_5_2.vue'),
   '4.5.3': () => import('../components/sections/Chapter_4_5_3.vue'),
   '4.6': () => import('../components/sections/Chapter_4_6.vue'),
+
+  // Chapter 5
+  '5.1': () => import('../components/sections/Chapter_5_1.vue'),
+  '5.2.1': () => import('../components/sections/Chapter_5_2_1.vue'),
+  '5.2.2': () => import('../components/sections/Chapter_5_2_2.vue'),
+  '5.2.3': () => import('../components/sections/Chapter_5_2_3.vue'),
+  '5.2.4': () => import('../components/sections/Chapter_5_2_4.vue'),
+  '5.2.5': () => import('../components/sections/Chapter_5_2_5.vue'),
+  '5.3.1': () => import('../components/sections/Chapter_5_3_1.vue'),
+  '5.3.2': () => import('../components/sections/Chapter_5_3_2.vue'),
+  '5.4.1': () => import('../components/sections/Chapter_5_4_1.vue'),
+  '5.4.2': () => import('../components/sections/Chapter_5_4_2.vue'),
+  '5.4.3': () => import('../components/sections/Chapter_5_4_3.vue'),
+  '5.4.4': () => import('../components/sections/Chapter_5_4_4.vue'),
+  '5.4.5': () => import('../components/sections/Chapter_5_4_5.vue'),
+  '5.4.6': () => import('../components/sections/Chapter_5_4_6.vue'),
+  '5.5': () => import('../components/sections/Chapter_5_5.vue'),
+  '5.6': () => import('../components/sections/Chapter_5_6.vue'),
+  '5.7': () => import('../components/sections/Chapter_5_7.vue'),
 };
 
 // 获取section的标题
@@ -109,6 +128,25 @@ export function getSectionTitle(sectionId) {
     '4.5.2': '4.5.2 The Frustration-Free Hamiltonians Problem',
     '4.5.3': '4.5.3 The 2-Local Frustration-Free Hamiltonians',
     '4.6': '4.6 Summary and Further Reading',
+
+    // Chapter 5
+    '5.1': '5.1 Introduction',
+    '5.2.1': '5.2.1 Dimensionality and Locality',
+    '5.2.2': '5.2.2 Thermodynamic Limit and Universality',
+    '5.2.3': '5.2.3 Gap',
+    '5.2.4': '5.2.4 Correlation',
+    '5.2.5': '5.2.5 Entanglement',
+    '5.3.1': '5.3.1 Entanglement Area Law',
+    '5.3.2': '5.3.2 Topological Entanglement Entropy',
+    '5.4.1': '5.4.1 Quantum Conditional Mutual Information',
+    '5.4.2': '5.4.2 Toric Code in a Magnetic Field',
+    '5.4.3': '5.4.3 The Transverse-Field Ising Model',
+    '5.4.4': '5.4.4 The Transverse-Field Cluster Model',
+    '5.4.5': '5.4.5 Systems with Mixed Orders',
+    '5.4.6': '5.4.6 I(A:C|B) as a Detector of Non-Trivial Many-Body Entanglement',
+    '5.5': '5.5 Gapped Ground States as Quantum-Error-Correcting Codes',
+    '5.6': '5.6 Entanglement in Gapless Systems',
+    '5.7': '5.7 Summary and Further Reading',
   };
   return titles[sectionId] || sectionId;
 }
