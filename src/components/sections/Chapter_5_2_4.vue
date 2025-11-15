@@ -332,7 +332,7 @@
       </div>
 
       <p><strong>Verification:</strong> γ = ν(2 - η) = 1(2 - 1/4) = 7/4 ✓</p>
-    </note-box>
+    </div>
 
     <h2>Higher-Order Correlations</h2>
 

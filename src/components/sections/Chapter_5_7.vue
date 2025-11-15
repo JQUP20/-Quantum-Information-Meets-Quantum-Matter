@@ -424,7 +424,7 @@
         <li>Guide for designing quantum algorithms</li>
         <li>Framework for analyzing quantum hardware</li>
       </ul>
-    </info-box>
+    </div>
 
     <h2>Final Thoughts</h2>
 
