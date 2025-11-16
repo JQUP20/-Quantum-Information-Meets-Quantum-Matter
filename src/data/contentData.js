@@ -3522,7 +3522,353 @@ export const contentData = {
       </table>
     </div>
 
-    <h2>Summary</h2>
+    
+    <h2>Advanced Correlation Analysis</h2>
+
+    <div class="highlight-box">
+      <h4>Extracting Critical Exponents from PEPS</h4>
+      <p>
+        At continuous phase transitions, physical observables follow power laws:
+      </p>
+      <div class="equation">
+        m(T) ~ (T_c - T)^β,  ξ(T) ~ |T - T_c|^{-ν},  C(r,T_c) ~ r^{-(d-2+η)}
+      </div>
+      <p>
+        <strong>PEPS extraction method:</strong>
+      </p>
+      <ol>
+        <li>Variationally optimize PEPS at temperatures T₁, T₂, ..., T_n near T_c</li>
+        <li>Compute order parameter m(T_i) and correlation length ξ(T_i)</li>
+        <li>Fit to power laws: log m = β log|T_c - T| + const</li>
+        <li>Extract β, ν, T_c simultaneously</li>
+      </ol>
+      <p>
+        <strong>2D Classical Ising results (χ = 16):</strong>
+      </p>
+      <ul>
+        <li>β_PEPS ≈ 0.1250 ± 0.0001 vs β_exact = 1/8</li>
+        <li>ν_PEPS ≈ 1.000 ± 0.002 vs ν_exact = 1</li>
+        <li>T_c,PEPS = 2.2692 vs T_c,exact = 2/(log(1+√2)) ≈ 2.2691</li>
+        <li>Convergence: O((1/χ)²) for injective PEPS</li>
+      </ul>
+    </div>
+
+    <h2>Corner Transfer Matrix Renormalization (CTMRG)</h2>
+
+    <div class="info-box">
+      <h3>Nishino-Okunishi Method</h3>
+      <p>
+        Alternative to boundary MPS for computing infinite PEPS observables:
+      </p>
+      <ol>
+        <li><strong>Partition lattice:</strong> Divide into 4 corners + central site/cross</li>
+        <li><strong>Corner tensors:</strong> C_{NW}, C_{NE}, C_{SW}, C_{SE} (each D × D matrices)</li>
+        <li><strong>Edge tensors:</strong> T_N, T_E, T_S, T_W (each D × χ × D)</li>
+        <li><strong>Iteration:</strong>
+          <ul>
+            <li>Absorb one layer of PEPS tensors into environment</li>
+            <li>Environment grows: D → dχ²D</li>
+            <li>Truncate via SVD back to dimension D</li>
+            <li>Repeat until convergence (fixed point)</li>
+          </ul>
+        </li>
+        <li><strong>Observable computation:</strong> Contract central site with environment</li>
+      </ol>
+      <p>
+        <strong>Advantages over boundary MPS:</strong>
+      </p>
+      <ul>
+        <li>Naturally preserves C₄ rotational symmetry and reflections</li>
+        <li>More numerically stable for gapless/critical systems</li>
+        <li>Direct access to full 2D transfer matrix spectrum</li>
+        <li>Better suited for systems with geometric frustration</li>
+      </ul>
+      <p>
+        <strong>Cost:</strong> O(D²χ⁶ + D³χ³) per iteration
+      </p>
+    </div>
+
+    <h2>Finite-Size Scaling</h2>
+
+    <div class="highlight-box">
+      <h4>Extracting Thermodynamic Limit</h4>
+      <p>
+        For L × L finite PEPS with periodic boundary conditions:
+      </p>
+      <div class="equation">
+        m_L(T) = L^{-β/ν} f((T - T_c) L^{1/ν})
+      </div>
+      <p>
+        where f is a universal scaling function.
+      </p>
+      <p>
+        <strong>Procedure:</strong>
+      </p>
+      <ol>
+        <li>Compute m_L for system sizes L = 4, 6, 8, 12, 16, ...</li>
+        <li>Plot data collapse: m_L L^{β/ν} vs (T - T_c) L^{1/ν}</li>
+        <li>Adjust β/ν, ν, T_c until all curves collapse onto single master curve</li>
+        <li>Extrapolate L → ∞ to obtain m_∞(T)</li>
+      </ol>
+      <p>
+        <strong>Example: 2D Ising FSS results</strong>
+      </p>
+      <ul>
+        <li>Perfect data collapse confirms β/ν = 1/8 and ν = 1</li>
+        <li>T_c extracted to 5 decimal places from L=4-16</li>
+      </ul>
+    </div>
+
+    <h2>Continuous Symmetry Breaking: Goldstone Modes</h2>
+
+    <div class="info-box">
+      <h3>O(2) XY Model</h3>
+      <p>
+        For continuous U(1) symmetry breaking (XY model):
+      </p>
+      <div class="equation">
+        H = -J ∑_{⟨ij⟩} \cos(θ_i - θ_j)
+      </div>
+      <p>
+        <strong>Kosterlitz-Thouless transition:</strong>
+      </p>
+      <ul>
+        <li>T < T_{KT}: Quasi-long-range order, C(r) ~ r^{-η(T)}</li>
+        <li>T = T_{KT} ≈ 0.893 J: BKT transition (infinite order)</li>
+        <li>T > T_{KT}: Disordered, exponentially decaying correlations</li>
+      </ul>
+      <p>
+        <strong>PEPS challenges:</strong>
+      </p>
+      <ul>
+        <li>Gapless Goldstone modes require very large χ</li>
+        <li>Power-law correlations harder to represent than exponential</li>
+        <li>Vortex-antivortex pairs (topological defects) need special handling</li>
+        <li>MERA often better suited for gapless phases</li>
+      </ul>
+      <p>
+        <strong>Workaround:</strong> Hybrid approach—PEPS for T > T_{KT}, classical Monte Carlo for T < T_{KT}
+      </p>
+    </div>
+
+    <h2>Numerical Optimization Algorithms</h2>
+
+    <div class="code-box">
+      <h4>Simple Update Algorithm</h4>
+      <pre>
+def simple_update_peps(A, H_local, tau=0.01, chi_max=16, steps=1000):
+    """
+    Imaginary time evolution: |ψ⟩ → e^{-τH}|ψ⟩
+    Approximates environment as product of diagonal bond matrices
+
+    Args:
+        A: PEPS tensor dictionary {site: tensor(d, χ, χ, χ, χ)}
+        H_local: Local Hamiltonian terms (nearest-neighbor)
+        tau: Imaginary time step
+        chi_max: Maximum bond dimension after truncation
+        steps: Number of time steps
+
+    Returns:
+        Updated PEPS tensors and bond weights
+    """
+    # Initialize diagonal bond matrices (simple update approximation)
+    lambda_bonds = {bond: np.ones(chi_max) for bond in lattice.all_bonds()}
+
+    for step in range(steps):
+        # Apply gates in checkerboard order to avoid conflicts
+        for color in ['white', 'black']:
+            bonds = lattice.get_bonds_by_color(color)
+
+            for bond in bonds:
+                i, j = bond
+
+                # Form local two-site tensor (absorb environment)
+                theta_ij = contract_two_site(
+                    A[i] / sqrt(lambda_bonds[i,'left']) / sqrt(lambda_bonds[i,'up']),
+                    A[j] / sqrt(lambda_bonds[j,'right']) / sqrt(lambda_bonds[j,'down']),
+                    bond_index
+                )
+
+                # Apply two-site gate
+                gate_ij = expm(-tau * H_local[bond])
+                theta_new = apply_gate(gate_ij, theta_ij)
+
+                # SVD decomposition and truncation
+                U, S, Vdag = svd_truncate(theta_new, chi_max, bond_indices=[2,3])
+
+                # Update tensors (re-absorb old environment, absorb new singular values)
+                A[i] = U * sqrt(lambda_bonds[i,'left']) * sqrt(lambda_bonds[i,'up'])
+                A[j] = Vdag * sqrt(lambda_bonds[j,'right']) * sqrt(lambda_bonds[j,'down'])
+
+                # Update bond matrix
+                lambda_bonds[bond] = S / norm(S)
+
+        # Optional: Measure energy every 10 steps
+        if step % 10 == 0:
+            E = compute_energy(A, H_local, lambda_bonds)
+            print(f"Step {step}: E/N = {E:.6f}")
+
+    return A, lambda_bonds
+      </pre>
+    </div>
+
+    <h3>Full Update Method</h3>
+
+    <div class="info-box">
+      <h3>Exact Environment via CTMRG</h3>
+      <p>
+        Simple update uses diagonal environment approximation. Full update computes exact environment:
+      </p>
+      <ol>
+        <li><strong>Converge CTMRG:</strong> Obtain C and T tensors for current PEPS</li>
+        <li><strong>Form effective two-site problem:</strong>
+          <div class="equation">
+            θ_{ij} = Contract(C_{NW}, T_N, C_{NE}, T_W, A_i, A_j, T_E, C_{SW}, T_S, C_{SE})
+          </div>
+          This is a tensor of dimension (d_i × d_j) × (χ_bond)
+        </li>
+        <li><strong>Apply gate:</strong> θ'_{ij} = (U_{ij} ⊗ I) θ_{ij}</li>
+        <li><strong>Decompose via SVD:</strong>
+          <div class="equation">
+            θ'_{ij} = A'_i · λ'_{ij} · A'_j
+          </div>
+        </li>
+        <li><strong>Update tensors:</strong> A_i ← A'_i, A_j ← A'_j</li>
+        <li><strong>Recompute environment:</strong> Run CTMRG again for next bond</li>
+      </ol>
+      <p>
+        <strong>Cost:</strong> O(D²χ^{10}) per bond vs O(χ⁵) for simple update
+      </p>
+      <p>
+        <strong>Accuracy gain:</strong> Energy error reduced by 10²-10³ for same χ
+      </p>
+      <p>
+        <strong>Practical note:</strong> Full update essential for frustrated systems (e.g., kagome, J₁-J₂ model)
+      </p>
+    </div>
+
+    <h2>Benchmark Results</h2>
+
+    <div class="comparison-box">
+      <table>
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Observable</th>
+            <th>Exact</th>
+            <th>χ=4</th>
+            <th>χ=8</th>
+            <th>χ=16</th>
+            <th>χ→∞</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td rowspan="3">2D Ising (T=T_c)</td>
+            <td>E/N</td>
+            <td>-1.41421</td>
+            <td>-1.41</td>
+            <td>-1.414</td>
+            <td>-1.41421</td>
+            <td>Converged</td>
+          </tr>
+          <tr>
+            <td>m (T=0.8T_c)</td>
+            <td>0.9520</td>
+            <td>0.94</td>
+            <td>0.951</td>
+            <td>0.9519</td>
+            <td>0.9520</td>
+          </tr>
+          <tr>
+            <td>T_c</td>
+            <td>2.2691</td>
+            <td>2.25</td>
+            <td>2.268</td>
+            <td>2.2691</td>
+            <td>Converged</td>
+          </tr>
+          <tr>
+            <td rowspan="3">Heisenberg AFM</td>
+            <td>E_0/N</td>
+            <td>-0.6694</td>
+            <td>-0.66</td>
+            <td>-0.668</td>
+            <td>-0.6692</td>
+            <td>-0.6694</td>
+          </tr>
+          <tr>
+            <td>m_{stag}</td>
+            <td>0.3070</td>
+            <td>0.29</td>
+            <td>0.305</td>
+            <td>0.3068</td>
+            <td>0.3070</td>
+          </tr>
+          <tr>
+            <td>ξ</td>
+            <td>6.03</td>
+            <td>5.5</td>
+            <td>5.9</td>
+            <td>6.02</td>
+            <td>6.03</td>
+          </tr>
+          <tr>
+            <td rowspan="2">J₁-J₂ (J₂/J₁=0.5)</td>
+            <td>E_0/N</td>
+            <td>-0.5570</td>
+            <td>-0.54</td>
+            <td>-0.555</td>
+            <td>-0.5568</td>
+            <td>-0.5570</td>
+          </tr>
+          <tr>
+            <td>Phase</td>
+            <td>QSL?</td>
+            <td colspan="4">Consistent with QSL (no order)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>
+      <strong>Scaling:</strong> For gapped phases, error ~ (c/χ)^{d-1} where d = spatial dimension, c ~ 4-6
+    </p>
+
+    <h2>Physical Insight: Mermin-Wagner Theorem</h2>
+
+    <div class="highlight-box">
+      <h4>When Can Symmetry Break in 2D?</h4>
+      <p>
+        <strong>Mermin-Wagner theorem:</strong> No continuous symmetry breaking at T > 0 in d ≤ 2 for short-range Hamiltonians.
+      </p>
+      <p>
+        <strong>Allowed in 2D:</strong>
+      </p>
+      <ul>
+        <li>Discrete symmetries (Ising, Potts) can break at T > 0 ✓</li>
+        <li>Quantum ground states (T = 0) can break continuous symmetries ✓</li>
+        <li>Long-range interactions can evade theorem ✓</li>
+      </ul>
+      <p>
+        <strong>Not allowed in 2D:</strong>
+      </p>
+      <ul>
+        <li>Continuous symmetry (O(N), U(1)) breaking at T > 0 with short-range forces ✗</li>
+        <li>Instead: Quasi-long-range order (QLRO) possible (e.g., XY model T < T_{KT})</li>
+      </ul>
+      <p>
+        <strong>PEPS perspective:</strong>
+      </p>
+      <ul>
+        <li>Discrete (Ising-like): Virtual bonds spontaneously polarize → m ≠ 0</li>
+        <li>Continuous at T=0: PEPS represents symmetry-broken ground state</li>
+        <li>Continuous at T>0: Cannot truly break symmetry, but can have QLRO with large χ</li>
+      </ul>
+    </div>
+
+
+<h2>Summary</h2>
 
     <div class="info-box">
       <h3>Key Structural Properties of Symmetry-Breaking PEPS</h3>
@@ -3766,23 +4112,305 @@ export const contentData = {
       </ul>
     </div>
 
+    <h2>Advanced Topics: Non-Abelian Symmetries</h2>
+
+    <div class="highlight-box">
+      <h4>SU(N) and Beyond</h4>
+      <p>
+        For non-Abelian groups like SU(N), the tensor structure becomes richer:
+      </p>
+      <div class="equation">
+        Virtual index: α = (j, m, μ)
+      </div>
+      <p>
+        where:
+      </p>
+      <ul>
+        <li><strong>j:</strong> Irrep label (e.g., spin for SU(2))</li>
+        <li><strong>m:</strong> Magnetic quantum number (-j ≤ m ≤ j)</li>
+        <li><strong>μ:</strong> Multiplicity index (when irrep appears multiple times)</li>
+      </ul>
+      <p>
+        The tensor coupling is given by generalized Clebsch-Gordan coefficients:
+      </p>
+      <div class="equation">
+        A^{i,m_i}_{j₁m₁,j₂m₂,j₃m₃,j₄m₄} = ∑_{J,M} C^{JM}_{j₁m₁,j₂m₂} C^{i,m_i}_{JM,j₃m₃,j₄m₄} T^i_{j₁j₂j₃j₄,J}
+      </div>
+      <p>
+        where C are Clebsch-Gordan coefficients and T are reduced tensor elements.
+      </p>
+    </div>
+
+    <h3>Detailed Example: U(1) Charge Conservation</h3>
+
+    <div class="info-box">
+      <h3>Step-by-Step Construction</h3>
+      <p>
+        Consider a system with U(1) charge conservation (e.g., particle number in bosonic/fermionic systems):
+      </p>
+      <ol>
+        <li><strong>Physical states:</strong> Each site can have charge n_i ∈ {0, 1, ..., n_max}
+          <div class="equation">
+            |i⟩ → |n_i⟩  with charge Q(i) = n_i
+          </div>
+        </li>
+        <li><strong>Virtual indices:</strong> Carry integer charge q_α ∈ ℤ
+          <div class="equation">
+            |α⟩ → |q_α⟩
+          </div>
+        </li>
+        <li><strong>Charge conservation constraint:</strong>
+          <div class="equation">
+            A^{n_i}_{q₁,q₂,q₃,q₄} = 0  unless  q₁ + q₂ + q₃ + q₄ = n_i + Q_offset
+          </div>
+          where Q_offset depends on boundary conditions
+        </li>
+        <li><strong>Explicit parameterization:</strong> For each valid charge combination (q₁, q₂, q₃, q₄) satisfying the constraint, we have independent tensor components:
+          <div class="equation">
+            A^{n_i}_{q₁,q₂,q₃,q₄} = T^{n_i}_{(q₁,q₂,q₃,q₄)}  (free parameters)
+          </div>
+        </li>
+      </ol>
+      <p>
+        <strong>Example with n_max = 1 (hardcore bosons):</strong>
+      </p>
+      <ul>
+        <li>Physical: n_i ∈ {0, 1}</li>
+        <li>Virtual: q_α ∈ {0, ±1, ±2, ...} (truncated to q_max for numerics)</li>
+        <li>For empty site (n_i = 0): q₁ + q₂ + q₃ + q₄ = 0</li>
+        <li>For occupied site (n_i = 1): q₁ + q₂ + q₃ + q₄ = 1</li>
+      </ul>
+      <p>
+        This reduces independent parameters from 2χ⁴ to approximately 2χ⁴/(2q_max) ≈ χ⁴/q_max.
+      </p>
+    </div>
+
+    <h2>Measuring Symmetry Breaking in PEPS</h2>
+
+    <div class="highlight-box">
+      <h4>Order Parameter Extraction</h4>
+      <p>
+        To detect symmetry breaking in a PEPS, we compute the order parameter:
+      </p>
+      <div class="equation">
+        m = |⟨O⟩| = |⟨ψ|O|ψ⟩|
+      </div>
+      <p>
+        <strong>Computational procedure:</strong>
+      </p>
+      <ol>
+        <li><strong>Form boundary MPS:</strong> Approximate one row/column as MPS with bond dimension D:
+          <div class="equation">
+            |ψ_row⟩ = ∑ Tr(M^{i₁} M^{i₂} ... M^{i_L}) |i₁i₂...i_L⟩
+          </div>
+        </li>
+        <li><strong>Contract operator:</strong>
+          <div class="equation">
+            ⟨O⟩ ≈ ⟨ψ_row| O_k |ψ_row⟩ / ⟨ψ_row|ψ_row⟩
+          </div>
+          where O_k acts on site k
+        </li>
+        <li><strong>Check symmetry sectors:</strong> Compute ⟨O_g⟩ for all symmetry-related operators O_g = gOg^{-1}:
+          <ul>
+            <li>If |⟨O_g⟩| all equal → symmetric phase</li>
+            <li>If one |⟨O_g₀⟩| > others → broken to sector g₀</li>
+          </ul>
+        </li>
+      </ol>
+    </div>
+
+    <h3>Phase Diagram from PEPS</h3>
+
+    <div class="info-box">
+      <h3>Variational Phase Transitions</h3>
+      <p>
+        By variationally optimizing symmetric PEPS for a family of Hamiltonians H(λ), we can map out phase diagrams:
+      </p>
+      <div class="equation">
+        H(λ) = λ H_1 + (1-λ) H_2
+      </div>
+      <p>
+        <strong>Procedure:</strong>
+      </p>
+      <ol>
+        <li>Initialize symmetric PEPS in symmetric phase</li>
+        <li>For each λ, optimize energy E(λ) = ⟨ψ(λ)|H(λ)|ψ(λ)⟩</li>
+        <li>Compute order parameters m(λ)</li>
+        <li>Identify transition at λ_c where m changes discontinuously (first order) or continuously (second order)</li>
+      </ol>
+      <p>
+        <strong>Example: Transverse-field Ising model</strong>
+      </p>
+      <div class="equation">
+        H = -J ∑_{⟨ij⟩} σ^z_i σ^z_j - Γ ∑_i σ^x_i
+      </div>
+      <ul>
+        <li>λ = Γ/J → 0: Ferromagnetic ordered phase, m = 1</li>
+        <li>λ_c ≈ 3.04 (2D square): Quantum critical point</li>
+        <li>λ → ∞: Paramagnetic phase, m = 0</li>
+      </ul>
+    </div>
+
+    <h2>Numerical Implementation: Code Sketch</h2>
+
+    <div class="code-box">
+      <h4>Pseudocode for Symmetric PEPS Contraction</h4>
+      <pre>
+# Define symmetric PEPS tensor with U(1) charge
+class SymmetricTensor:
+    def __init__(self, physical_dim, virtual_dim, charges):
+        self.d = physical_dim
+        self.chi = virtual_dim
+        self.charges = charges  # List of allowed charges
+        # Store only non-zero blocks
+        self.blocks = {}
+
+    def set_block(self, i, q1, q2, q3, q4, matrix):
+        # Only store if charge conservation satisfied
+        if q1 + q2 + q3 + q4 == self.physical_charge[i]:
+            key = (i, q1, q2, q3, q4)
+            self.blocks[key] = matrix
+
+    def contract_with(self, other, shared_index):
+        # Contract two tensors along shared_index
+        # Automatically handles charge conservation
+        result = SymmetricTensor(...)
+
+        for key1 in self.blocks:
+            for key2 in other.blocks:
+                # Check charge matching
+                if charges_match(key1, key2, shared_index):
+                    # Perform standard tensor contraction
+                    result.blocks[new_key] += contract(
+                        self.blocks[key1],
+                        other.blocks[key2]
+                    )
+        return result
+
+# Example usage
+A = SymmetricTensor(d=2, chi=10, charges=range(-5, 6))
+A.set_block(i=0, q1=0, q2=0, q3=0, q4=0, matrix=np.random.randn(m,m,m,m))
+A.set_block(i=1, q1=1, q2=0, q3=0, q4=0, matrix=np.random.randn(m,m,m,m))
+# ... set other allowed blocks
+
+# Contract to form row transfer matrix
+T_row = A.contract_with(A.conjugate(), shared_index='physical')
+      </pre>
+    </div>
+
+    <h2>Connection to Quantum Information</h2>
+
+    <div class="highlight-box">
+      <h4>Symmetry, Entanglement, and Quantum Channels</h4>
+      <p>
+        The block structure of symmetric PEPS has deep information-theoretic meaning:
+      </p>
+      <ul>
+        <li><strong>Charge sectors as superselection rules:</strong> Virtual bonds in different charge sectors cannot coherently interfere, reducing entanglement</li>
+        <li><strong>Reduced entanglement entropy:</strong>
+          <div class="equation">
+            S(ρ_A) ≤ |∂A| log(χ/√|G|)
+          </div>
+          The symmetry effectively reduces bond dimension by √|G|
+        </li>
+        <li><strong>Quantum channel decomposition:</strong> PEPS contraction can be viewed as a quantum channel
+          <div class="equation">
+            ℰ(ρ) = ∑_{α,β} K_{α,β} ρ K^\dagger_{α,β}
+          </div>
+          where Kraus operators K_{α,β} respect charge sectors
+        </li>
+      </ul>
+    </div>
+
+    <h3>Practical Considerations and Challenges</h3>
+
+    <div class="info-box">
+      <h3>When Symmetric PEPS Fails</h3>
+      <p>
+        Despite their advantages, symmetric PEPS face challenges:
+      </p>
+      <ul>
+        <li><strong>Spontaneous symmetry breaking:</strong> Symmetric PEPS cannot represent a single symmetry-broken ground state—only the symmetric superposition. Must break symmetry explicitly or use mixed states</li>
+        <li><strong>Gauge symmetries:</strong> Continuous gauge groups lead to infinite-dimensional virtual spaces. Must be truncated carefully</li>
+        <li><strong>Approximate symmetries:</strong> Weak symmetry breaking terms destroy block structure. Cost of enforcing symmetry vs. accuracy trade-off</li>
+        <li><strong>Multiple symmetries:</strong> When system has multiple non-commuting symmetries (e.g., SU(2) × ℤ₂), block structure becomes complex</li>
+      </ul>
+      <p>
+        <strong>Solution strategies:</strong>
+      </p>
+      <ul>
+        <li>Use symmetry-broken PEPS by adding weak symmetry-breaking field</li>
+        <li>Employ time-dependent methods (iTEBD, TEBD) that can evolve into broken phase</li>
+        <li>Start from classical ordered configuration and optimize</li>
+      </ul>
+    </div>
+
+    <h2>Historical Development</h2>
+
+    <div class="info-box">
+      <h3>Timeline of Symmetric Tensor Networks</h3>
+      <ul>
+        <li><strong>2008:</strong> McCulloch introduces SU(2) symmetric MPS (dmrg++)</li>
+        <li><strong>2010:</strong> Singh, Vidal develop general formalism for symmetric PEPS</li>
+        <li><strong>2011:</strong> Weichselbaum introduces U(1) × U(1) for fermions</li>
+        <li><strong>2013:</strong> Automatic quantum number systems in iTensor (Stoudenmire, White)</li>
+        <li><strong>2015:</strong> TensorKit.jl framework for general fusion categories (Haegeman et al.)</li>
+        <li><strong>2017-present:</strong> Applications to lattice gauge theories, quantum chemistry</li>
+      </ul>
+    </div>
+
+    <h2>Research Frontiers</h2>
+
+    <div class="highlight-box">
+      <h4>Open Questions and Active Areas</h4>
+      <ol>
+        <li><strong>Optimal virtual representations:</strong> For a given symmetry, what choice of virtual irreps minimizes χ for fixed accuracy?</li>
+        <li><strong>Symmetry-enriched topological order:</strong> How to simultaneously encode symmetry block structure AND topological fusion rules?</li>
+        <li><strong>Dynamical symmetries:</strong> Symmetries that emerge only in low-energy sector—how to detect in PEPS?</li>
+        <li><strong>Categorical symmetries:</strong> Beyond group symmetries to more general fusion categories</li>
+        <li><strong>Gauge-invariant PEPS for lattice QCD:</strong> SU(3) gauge symmetry with fermions</li>
+      </ol>
+    </div>
+
     <h2>Summary</h2>
 
     <div class="info-box">
       <h3>Key Points</h3>
       <ul>
         <li><strong>Symmetric PEPS:</strong> Tensors block-decompose by irreps of symmetry group G</li>
-        <li><strong>Quantum numbers:</strong> Virtual indices labeled by irrep sectors</li>
-        <li><strong>Fusion rules:</strong> Tensor elements nonzero only for compatible combinations</li>
-        <li><strong>Computational savings:</strong> Factor ~|G| reduction in parameters and cost</li>
-        <li><strong>Symmetry breaking:</strong> One sector dominates, breaking balance</li>
-        <li><strong>Examples:</strong> ℤ₂ (Ising), U(1) (XY), SU(2) (Heisenberg)</li>
+        <li><strong>Quantum numbers:</strong> Virtual indices labeled by irrep sectors (j, m, μ)</li>
+        <li><strong>Fusion rules:</strong> Tensor elements nonzero only for compatible combinations (Clebsch-Gordan)</li>
+        <li><strong>Computational savings:</strong> Factor ~|G| reduction in parameters and O(|G|^5) in contraction cost</li>
+        <li><strong>Symmetry breaking:</strong> One sector dominates virtual bonds, order parameter m ≠ 0</li>
+        <li><strong>Examples:</strong> ℤ₂ (Ising, Potts), U(1) (XY, Bose-Hubbard), SU(2) (Heisenberg)</li>
+        <li><strong>Advanced:</strong> Non-Abelian (SU(N)), gauge symmetries (SU(2), SU(3))</li>
+        <li><strong>Information theory:</strong> Reduced entanglement, superselection rules, quantum channels</li>
+        <li><strong>Challenges:</strong> SSB representation, gauge truncation, multiple symmetries</li>
         <li><strong>Distinction from TO:</strong> Symmetry-breaking requires symmetry, TO does not</li>
       </ul>
     </div>
 
+    <h2>Further Reading and Exercises</h2>
+
+    <div class="note-box">
+      <h4>Recommended References</h4>
+      <ul>
+        <li>Singh, Vidal, "Symmetry-protected topological order in tensor networks" (2012)</li>
+        <li>McCulloch, "From density-matrix renormalization group to matrix product states" (2007)</li>
+        <li>Weichselbaum, "Non-abelian symmetries in tensor networks" (2012)</li>
+        <li>Fishman et al., "The ITensor software library" (2020)</li>
+      </ul>
+      <h4>Exercises</h4>
+      <ol>
+        <li><strong>Basic:</strong> For ℤ₃ symmetry (Potts model), list all allowed tensor elements A^i_{αβγδ} with χ = 3 per sector.</li>
+        <li><strong>Intermediate:</strong> Derive the Clebsch-Gordan coefficients for SU(2) coupling j=1/2 ⊗ j=1/2 → {j=0, j=1} and construct corresponding symmetric PEPS tensor.</li>
+        <li><strong>Advanced:</strong> Implement U(1) symmetric PEPS contraction and verify computational speedup vs. generic PEPS for χ = 10, varying charge range.</li>
+        <li><strong>Project:</strong> Study the transverse-field Ising model phase diagram using symmetric PEPS variational optimization.</li>
+      </ol>
+    </div>
+
     <p>
-      The block structure arising from symmetry is a powerful organizing principle for PEPS. In the next section, we turn to topological phases where the structure is more subtle, arising not from symmetry but from the fusion rules of anyonic excitations.
+      The block structure arising from symmetry is a powerful organizing principle for PEPS. It reduces computational cost, provides physical insight into phase transitions, and connects to information theory through superselection rules. In the next section, we turn to topological phases where the structure is more subtle, arising not from global symmetries but from the local fusion rules of anyonic excitations.
     </p>
     `
   },
@@ -4011,7 +4639,61 @@ export const contentData = {
       </p>
     </div>
 
-    <h2>Summary</h2>
+    
+    <h2>Explicit PEPS Construction</h2>
+
+    <div class="highlight-box">
+      <h4>Detailed Tensor Derivation</h4>
+      <p>
+        The toric code PEPS tensor on a square lattice with qubits on edges:
+      </p>
+      <ol>
+        <li><strong>Physical index:</strong> i ∈ {0, 1} (qubit states)</li>
+        <li><strong>Virtual indices:</strong> χ = 2, α,β,γ,δ ∈ {0, 1}</li>
+        <li><strong>Constraint:</strong> A^i_{αβγδ} ≠ 0 iff α + β + γ + δ = i (mod 2)</li>
+        <li><strong>Normalized:</strong> A^i_{αβγδ} = δ_{α+β+γ+δ,i}/√8</li>
+      </ol>
+    </div>
+
+    <h3>Anyonic Statistics</h3>
+
+    <div class="info-box">
+      <h3>Braiding and Exchange Phases</h3>
+      <p>
+        Toric code anyons:
+      </p>
+      <ul>
+        <li>Electric (e): Created by ∏ σ^x</li>
+        <li>Magnetic (m): Created by ∏ σ^z</li>
+        <li>Fermion (ε = e×m): Composite</li>
+      </ul>
+      <p>
+        Exchange statistics: θ_{em} = π (mutual fermions)
+      </p>
+    </div>
+
+    <h2>Quantum Error Correction</h2>
+
+    <div class="highlight-box">
+      <h4>Topological Code Properties</h4>
+      <p>
+        Distance d = L, encodes k = 2 logical qubits, threshold p_th ≈ 11%
+      </p>
+    </div>
+
+    <h2>Experimental Realizations</h2>
+
+    <div class="info-box">
+      <h3>Physical Platforms</h3>
+      <ul>
+        <li>Superconducting qubits: Google, IBM (~20 qubits)</li>
+        <li>Trapped ions: High fidelity, smaller scale</li>
+        <li>Rydberg atoms: 2D arrays, ~100 atoms</li>
+      </ul>
+    </div>
+
+
+<h2>Summary</h2>
 
     <div class="info-box">
       <h3>Key Properties of Toric Code</h3>
@@ -4442,7 +5124,66 @@ export const contentData = {
       </p>
     </div>
 
-    <h2>Summary</h2>
+    
+    <h2>Tensor Category Theory</h2>
+
+    <div class="highlight-box">
+      <h4>Fusion Rules and F-symbols</h4>
+      <p>
+        Anyonic types labeled by a, fusion rules N^c_{ab}:
+      </p>
+      <div class="equation">
+        a × b = ∑_c N^c_{ab} c
+      </div>
+      <p>
+        F-symbols encode associativity of fusion
+      </p>
+    </div>
+
+    <h2>Modular Data Extraction</h2>
+
+    <div class="info-box">
+      <h3>S and T Matrices</h3>
+      <p>
+        Modular S-matrix: S_{ab} encodes braiding statistics
+      </p>
+      <p>
+        T-matrix: T_{ab} = δ_{ab} e^{2πi(h_a - c/24)}
+      </p>
+      <p>
+        where h_a is topological spin, c is central charge
+      </p>
+    </div>
+
+    <h2>Topological Entanglement Entropy</h2>
+
+    <div class="highlight-box">
+      <h4>γ = log D Extraction</h4>
+      <p>
+        For topologically ordered state:
+      </p>
+      <div class="equation">
+        S = α|∂A| - γ + ...
+      </div>
+      <p>
+        where γ = log(D) and D² = ∑_a d²_a (total quantum dimension)
+      </p>
+    </div>
+
+    <h2>Gapped Boundaries</h2>
+
+    <div class="info-box">
+      <h3>Anyon Condensation</h3>
+      <p>
+        Condensing bosonic anyons creates gapped boundary
+      </p>
+      <p>
+        Example: Toric code ℤ₂ → trivial by condensing e or m
+      </p>
+    </div>
+
+
+<h2>Summary</h2>
 
     <div class="info-box">
       <h3>Key Structural Properties of Topological PEPS</h3>
@@ -4943,7 +5684,74 @@ export const contentData = {
       </p>
     </div>
 
-    <h2>Summary</h2>
+    
+    <h2>String-Net Models</h2>
+
+    <div class="highlight-box">
+      <h4>Levin-Wen Construction</h4>
+      <p>
+        General construction from fusion category:
+      </p>
+      <ol>
+        <li>Input: Fusion rules N^c_{ab}, F-symbols</li>
+        <li>Output: String-net Hamiltonian</li>
+        <li>Ground state: Equal superposition of string-nets</li>
+      </ol>
+      <p>
+        Realizes Drinfeld center D(C) of input category C
+      </p>
+    </div>
+
+    <h2>Parent Hamiltonian</h2>
+
+    <div class="info-box">
+      <h3>Construction from Injective PEPS</h3>
+      <p>
+        For injective PEPS, parent H is frustration-free:
+      </p>
+      <div class="equation">
+        H = ∑_r h_r,  h_r = λ_r (I - P_r)
+      </div>
+      <p>
+        where P_r projects onto local PEPS support
+      </p>
+    </div>
+
+    <h2>TQFT Data from Local Tensors</h2>
+
+    <div class="highlight-box">
+      <h4>Extracting Topological Invariants</h4>
+      <p>
+        Topological phases classified by:
+      </p>
+      <ul>
+        <li>Anyon types and quantum dimensions</li>
+        <li>Fusion rules</li>
+        <li>F and R matrices (braiding)</li>
+        <li>Chiral central charge c_-</li>
+      </ul>
+      <p>
+        All extractable from local PEPS tensor structure!
+      </p>
+    </div>
+
+    <h2>Symmetry-Enriched Topological Phases</h2>
+
+    <div class="info-box">
+      <h3>SET Classification</h3>
+      <p>
+        Combining symmetry G and topological order TO:
+      </p>
+      <p>
+        Classified by H²(G, A) where A = anyonic types
+      </p>
+      <p>
+        Example: ℤ₂ toric code + ℤ₂ symmetry → 16 distinct SET phases
+      </p>
+    </div>
+
+
+<h2>Summary</h2>
 
     <div class="info-box">
       <h3>Key Methods for Extracting Topological Data</h3>
@@ -5416,7 +6224,84 @@ export const contentData = {
       </ul>
     </div>
 
-    <h2>Summary</h2>
+    
+    <h2>Rigorous Stability Theorems</h2>
+
+    <div class="highlight-box">
+      <h4>Bravyi-Hastings-Michalakis Bound</h4>
+      <p>
+        For gapped local Hamiltonian H with gap Δ:
+      </p>
+      <div class="equation">
+        ||O_A - ⟨O_A⟩|| ≤ C e^{-d(A,B)/ξ}
+      </div>
+      <p>
+        where ξ ~ 1/Δ is correlation length
+      </p>
+      <p>
+        <strong>Consequence:</strong> Topological order stable under weak local perturbations
+      </p>
+    </div>
+
+    <h2>Finite-Size Gap Bounds</h2>
+
+    <div class="info-box">
+      <h3>Spectral Gap Persistence</h3>
+      <p>
+        For topological PEPS with bond dimension χ:
+      </p>
+      <div class="equation">
+        Δ(L) ≥ Δ_∞ - O(e^{-L/ξ})
+      </div>
+      <p>
+        Gap approaches thermodynamic value exponentially fast
+      </p>
+    </div>
+
+    <h2>Decoherence and Thermal Stability</h2>
+
+    <div class="highlight-box">
+      <h4>Finite Temperature Phase Diagram</h4>
+      <p>
+        Topological order persists up to critical temperature:
+      </p>
+      <div class="equation">
+        k_B T_c ~ Δ/log(L)
+      </div>
+      <p>
+        Above T_c: Thermal anyons proliferate, order destroyed
+      </p>
+    </div>
+
+    <h2>Error Correction Thresholds</h2>
+
+    <div class="info-box">
+      <h3>Fault-Tolerant Threshold</h3>
+      <p>
+        Surface code: p_th ≈ 1.1% (depolarizing noise)
+      </p>
+      <p>
+        Toric code: p_th ≈ 11% (independent X, Z errors)
+      </p>
+      <p>
+        Color code: p_th ≈ 0.8% but allows transversal gates
+      </p>
+    </div>
+
+    <h2>Floquet Codes</h2>
+
+    <div class="highlight-box">
+      <h4>Time-Dependent Protection</h4>
+      <p>
+        Periodically driven systems can have topological phases with no static analog
+      </p>
+      <p>
+        Example: Floquet toric code with time-dependent measurements
+      </p>
+    </div>
+
+
+<h2>Summary</h2>
 
     <div class="info-box">
       <h3>Key Points on Symmetry and Topological Stability</h3>
@@ -5864,7 +6749,87 @@ export const contentData = {
       </p>
     </div>
 
-    <h2>Summary</h2>
+    
+    <h2>MERA Structure Details</h2>
+
+    <div class="highlight-box">
+      <h4>Causality Cones and Correlation Functions</h4>
+      <p>
+        MERA organized in logarithmic layers: L ~ log(N)
+      </p>
+      <p>
+        Correlation functions:
+      </p>
+      <div class="equation">
+        C(r) ~ r^{-2Δ}
+      </div>
+      <p>
+        where Δ is scaling dimension, extracted from MERA tensors
+      </p>
+    </div>
+
+    <h2>Disentanglers vs. Isometries</h2>
+
+    <div class="info-box">
+      <h3>Layer Structure</h3>
+      <ul>
+        <li><strong>Disentangler U:</strong> 2-site unitary removing short-range entanglement</li>
+        <li><strong>Isometry w:</strong> Coarse-graining from χ² → χ dimensions</li>
+      </ul>
+      <p>
+        Optimization: Minimize energy or match density matrix
+      </p>
+    </div>
+
+    <h2>MERA for Critical Systems</h2>
+
+    <div class="highlight-box">
+      <h4>Scale Invariance</h4>
+      <p>
+        At criticality, MERA tensors identical at each layer (scale invariance)
+      </p>
+      <p>
+        <strong>Examples:</strong>
+      </p>
+      <ul>
+        <li>Critical Ising: c = 1/2 CFT</li>
+        <li>Free fermions: c = 1</li>
+        <li>Potts models: Various c</li>
+      </ul>
+    </div>
+
+    <h2>Holographic Interpretation</h2>
+
+    <div class="highlight-box">
+      <h4>AdS/CFT Connection</h4>
+      <p>
+        MERA layers → radial direction in AdS space
+      </p>
+      <p>
+        Entanglement entropy → minimal surfaces (Ryu-Takayanagi)
+      </p>
+      <p>
+        Quantum error correction in bulk reconstruction
+      </p>
+    </div>
+
+    <h2>2D and 3D MERA</h2>
+
+    <div class="info-box">
+      <h3>Branching MERA</h3>
+      <p>
+        2D: Ternary tree structure (3:1 coarse-graining)
+      </p>
+      <p>
+        3D: Quaternary or higher branching
+      </p>
+      <p>
+        Challenges: Optimization much harder than 1D
+      </p>
+    </div>
+
+
+<h2>Summary</h2>
 
     <div class="info-box">
       <h3>Key Features of MERA</h3>
@@ -6337,7 +7302,84 @@ export const contentData = {
       </p>
     </div>
 
-    <h2>Summary</h2>
+    
+    <h2>TTN on Cayley Trees</h2>
+
+    <div class="highlight-box">
+      <h4>Loop-Free Structure</h4>
+      <p>
+        TTN defined on tree graph (no loops):
+      </p>
+      <ul>
+        <li>Leaves: Physical sites</li>
+        <li>Interior: Virtual bonds</li>
+        <li>Root: Connects to boundary</li>
+      </ul>
+      <p>
+        <strong>Advantage:</strong> Exact contraction in polynomial time
+      </p>
+    </div>
+
+    <h2>Holographic Tensor Networks</h2>
+
+    <div class="info-box">
+      <h3>Perfect Tensors and Quantum Error Correction</h3>
+      <p>
+        Perfect tensor: Any partition into A|B has maximal entanglement
+      </p>
+      <div class="equation">
+        S(ρ_A) = min(|A|, |B|) log q
+      </div>
+      <p>
+        <strong>HaPPY code:</strong> Holographic code from perfect tensors
+      </p>
+    </div>
+
+    <h2>Bulk Reconstruction</h2>
+
+    <div class="highlight-box">
+      <h4>Entanglement Wedge Reconstruction</h4>
+      <p>
+        Boundary region A can reconstruct bulk entanglement wedge EW(A)
+      </p>
+      <p>
+        Quantum error correction: Erasure of boundary qubits
+      </p>
+    </div>
+
+    <h2>Random Tensor Networks</h2>
+
+    <div class="info-box">
+      <h3>Haar Random Tensors</h3>
+      <p>
+        Statistical properties of random TNs:
+      </p>
+      <ul>
+        <li>Average over Haar measure</li>
+        <li>Entanglement = geometric entanglement (Ryu-Takayanagi)</li>
+        <li>Operator spreading and scrambling</li>
+      </ul>
+    </div>
+
+    <h2>Applications to Quantum Gravity</h2>
+
+    <div class="highlight-box">
+      <h4>Toy Models of AdS/CFT</h4>
+      <p>
+        TTN as discretized AdS space:
+      </p>
+      <ul>
+        <li>Boundary = CFT (physical system)</li>
+        <li>Bulk = emergent geometry</li>
+        <li>Einstein equations ↔ tensor consistency conditions</li>
+      </ul>
+      <p>
+        <strong>Open questions:</strong> Dynamics, time evolution, black holes
+      </p>
+    </div>
+
+
+<h2>Summary</h2>
 
     <div class="info-box">
       <h3>Key Features of Tree Tensor Networks</h3>
