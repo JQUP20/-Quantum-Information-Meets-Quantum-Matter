@@ -140,6 +140,24 @@ export const sectionComponentMap = {
   '9.5.1': () => import('../components/sections/Chapter_9_5_1.vue'),
   '9.5.2': () => import('../components/sections/Chapter_9_5_2.vue'),
   '9.6': () => import('../components/sections/Chapter_9_6.vue'),
+
+  // Chapter 10
+  '10.1': () => import('../components/sections/Chapter_10_1.vue'),
+  '10.2.1': () => import('../components/sections/Chapter_10_2_1.vue'),
+  '10.2.2': () => import('../components/sections/Chapter_10_2_2.vue'),
+  '10.2.3': () => import('../components/sections/Chapter_10_2_3.vue'),
+  '10.2.4': () => import('../components/sections/Chapter_10_2_4.vue'),
+  '10.2.5': () => import('../components/sections/Chapter_10_2_5.vue'),
+  '10.3.1': () => import('../components/sections/Chapter_10_3_1.vue'),
+  '10.3.2': () => import('../components/sections/Chapter_10_3_2.vue'),
+  '10.3.3': () => import('../components/sections/Chapter_10_3_3.vue'),
+  '10.3.4': () => import('../components/sections/Chapter_10_3_4.vue'),
+  '10.3.5': () => import('../components/sections/Chapter_10_3_5.vue'),
+  '10.4.1': () => import('../components/sections/Chapter_10_4_1.vue'),
+  '10.4.2': () => import('../components/sections/Chapter_10_4_2.vue'),
+  '10.5.1': () => import('../components/sections/Chapter_10_5_1.vue'),
+  '10.5.2': () => import('../components/sections/Chapter_10_5_2.vue'),
+  '10.6': () => import('../components/sections/Chapter_10_6.vue'),
 };
 
 // 获取section的标题
@@ -285,6 +303,24 @@ export function getSectionTitle(sectionId) {
     '9.5.1': '9.5.1 MERA',
     '9.5.2': '9.5.2 Tree Tensor Network',
     '9.6': '9.6 Summary and Further Reading',
+
+    // Chapter 10
+    '10.1': '10.1 Introduction',
+    '10.2.1': '10.2.1 Examples of 1D SPT Phases',
+    '10.2.2': '10.2.2 On-site Unitary Symmetry',
+    '10.2.3': '10.2.3 Time-Reversal Symmetry',
+    '10.2.4': '10.2.4 Translation Invariance',
+    '10.2.5': '10.2.5 Classification Summary',
+    '10.3.1': '10.3.1 Jordan-Wigner Transformation',
+    '10.3.2': '10.3.2 Fermion Parity Symmetry Only',
+    '10.3.3': '10.3.3 Fermion Parity and T²=1',
+    '10.3.4': '10.3.4 Fermion Parity and T²=-1',
+    '10.3.5': '10.3.5 Fermion Number Conservation',
+    '10.4.1': '10.4.1 2D AKLT Model',
+    '10.4.2': '10.4.2 2D CZX Model',
+    '10.5.1': '10.5.1 Group Cohomology',
+    '10.5.2': '10.5.2 Constructing SPT from Group Cohomology',
+    '10.6': '10.6 Summary and Further Reading',
   };
   return titles[sectionId] || sectionId;
 }
