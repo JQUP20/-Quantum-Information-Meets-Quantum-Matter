@@ -188,6 +188,306 @@
       </ul>
     </div>
 
+    <h2>Bulk-Boundary Correspondence</h2>
+
+    <div class="info-box">
+      <h3>The Central Principle of SPT Physics</h3>
+      <p>
+        The bulk-boundary correspondence is the defining feature of SPT phases:
+      </p>
+      <div class="equation">
+        Nontrivial bulk SPT → Protected gapless/degenerate boundary
+      </div>
+      <p>
+        <strong>Key insight:</strong> While the bulk is gapped and short-range entangled, cutting the system creates a boundary that <em>must</em> host gapless modes or degeneracies as long as symmetry is preserved.
+      </p>
+
+      <h4>Mathematical Origin</h4>
+      <p>
+        Consider a d-dimensional SPT with boundary. The bulk is characterized by a nontrivial cocycle ω ∈ H^{d+1}(G,U(1)). At the boundary:
+      </p>
+      <ul>
+        <li>Symmetry acts projectively on edge states</li>
+        <li>Projective representation characterized by ω restricted to boundary</li>
+        <li>Cannot be made linear → prevents gapping without breaking symmetry</li>
+      </ul>
+
+      <h4>Physical Manifestation</h4>
+      <table>
+        <thead>
+          <tr>
+            <th>Dimension</th>
+            <th>Bulk</th>
+            <th>Boundary</th>
+            <th>Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1D</td>
+            <td>Gapped chain</td>
+            <td>Degenerate end states</td>
+            <td>Haldane: spin-1/2 edge modes</td>
+          </tr>
+          <tr>
+            <td>2D</td>
+            <td>Insulating</td>
+            <td>1D gapless edge</td>
+            <td>QSH: helical edge states</td>
+          </tr>
+          <tr>
+            <td>3D</td>
+            <td>Insulating</td>
+            <td>2D Dirac cone</td>
+            <td>TI: surface Dirac fermions</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Entanglement Structure</h2>
+
+    <div class="highlight-box">
+      <h4>SPT Phases and Quantum Entanglement</h4>
+      <p>
+        Although SPT phases are short-range entangled (like trivial phases), their entanglement has special structure:
+      </p>
+
+      <h4>Area Law</h4>
+      <div class="equation">
+        S(A) = α|∂A| + subleading terms
+      </div>
+      <p>
+        Unlike topologically ordered phases, γ = 0 (no topological entanglement entropy).
+      </p>
+
+      <h4>Entanglement Spectrum</h4>
+      <p>
+        The entanglement spectrum reveals edge physics:
+      </p>
+      <div class="equation">
+        ρ_A = e^{-H_E}  →  Spectrum of H_E reveals edge states
+      </div>
+      <p>
+        <strong>Li-Haldane conjecture:</strong> Entanglement spectrum mimics physical edge spectrum.
+      </p>
+
+      <h4>Example: Spin-1 Haldane Chain</h4>
+      <ul>
+        <li>Cut chain in half, trace out right half</li>
+        <li>Entanglement Hamiltonian H_E has 4-fold near-degenerate ground states</li>
+        <li>These correspond to 2 spin-1/2 edge modes (2² = 4 states)</li>
+        <li>Degeneracy splitting ~e^{-L/ξ} (exponentially small in system size)</li>
+      </ul>
+    </div>
+
+    <h2>SPT vs Symmetry Breaking: A Detailed Comparison</h2>
+
+    <div class="comparison-box">
+      <h3>Two Routes to Nontrivial Phases</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Symmetry Breaking</th>
+            <th>SPT Phase</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ground state</td>
+            <td>Degenerate (manifold)</td>
+            <td>Unique (on closed manifold)</td>
+          </tr>
+          <tr>
+            <td>Symmetry</td>
+            <td>Spontaneously broken</td>
+            <td>Preserved in ground state</td>
+          </tr>
+          <tr>
+            <td>Order parameter</td>
+            <td>Local: ⟨O(x)⟩ ≠ 0</td>
+            <td>Nonlocal: string order</td>
+          </tr>
+          <tr>
+            <td>Excitations</td>
+            <td>Goldstone modes</td>
+            <td>Gapped in bulk</td>
+          </tr>
+          <tr>
+            <td>Edge modes</td>
+            <td>Can be gapped</td>
+            <td>Protected if symmetric</td>
+          </tr>
+          <tr>
+            <td>Robustness</td>
+            <td>Perturbations → phase transition</td>
+            <td>Stable under symmetric perturbations</td>
+          </tr>
+          <tr>
+            <td>Classification</td>
+            <td>By symmetry group G</td>
+            <td>By H^{d+1}(G,U(1))</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>String Order Parameters</h2>
+
+    <div class="info-box">
+      <h3>Detecting SPT Order via Nonlocal Correlation</h3>
+      <p>
+        SPT phases cannot be detected by local order parameters. Instead, we use string operators:
+      </p>
+      <div class="equation">
+        O_string = lim_{|i-j|→∞} ⟨ϕ_i (∏_{k=i}^{j-1} U_k) ϕ_j⟩
+      </div>
+
+      <h4>Example: ℤ₂ × ℤ₂ Symmetry in Haldane Phase</h4>
+      <p>
+        For spin-1 chain with symmetries R_x (π-rotation around x) and R_y:
+      </p>
+      <div class="equation">
+        O_string^{xy} = lim_{|i-j|→∞} ⟨S_i^x e^{iπ∑_{k=i}^{j-1} S_k^z} S_j^x⟩
+      </div>
+      <ul>
+        <li><strong>Trivial phase:</strong> O_string = 0</li>
+        <li><strong>Haldane phase:</strong> O_string ≠ 0</li>
+        <li>The string operator exp(iπ∑S_k^z) implements ℤ₂ symmetry along the string</li>
+      </ul>
+
+      <h4>Physical Interpretation</h4>
+      <p>
+        String order captures "hidden" antiferromagnetic correlations. The string operator "untwists" the order, making it visible.
+      </p>
+    </div>
+
+    <h2>Experimental Realizations</h2>
+
+    <div class="highlight-box">
+      <h4>SPT Phases in the Laboratory</h4>
+
+      <h4>1D Systems</h4>
+      <ul>
+        <li><strong>NENP [Ni(C₂H₈N₂)₂NO₂(ClO₄)]:</strong> Spin-1 Heisenberg chain, Haldane gap Δ ≈ 6K
+          <ul>
+            <li>Neutron scattering confirms gap and excitation spectrum</li>
+            <li>ESR measurements detect edge mode signatures</li>
+          </ul>
+        </li>
+        <li><strong>Cold atoms in optical lattices:</strong> Bosonic SPT phases with synthetic symmetries
+          <ul>
+            <li>Tunable interactions and symmetries</li>
+            <li>Direct measurement of string order</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h4>2D/3D Topological Insulators</h4>
+      <ul>
+        <li><strong>HgTe/CdTe quantum wells:</strong> Quantum spin Hall effect
+          <ul>
+            <li>Edge conductance quantized to 2e²/h per edge</li>
+            <li>Robust against disorder (Anderson localization impossible)</li>
+          </ul>
+        </li>
+        <li><strong>Bi₂Se₃, Bi₂Te₃:</strong> 3D strong topological insulators
+          <ul>
+            <li>ARPES reveals single Dirac cone on surface</li>
+            <li>Spin-momentum locking verified</li>
+            <li>Surface transport robust to non-magnetic impurities</li>
+          </ul>
+        </li>
+      </ul>
+
+      <h4>Designer SPT in Quantum Simulators</h4>
+      <ul>
+        <li><strong>Rydberg atom arrays:</strong> Programmable 1D/2D SPT phases</li>
+        <li><strong>Superconducting qubits:</strong> Cluster state SPT, AKLT state preparation</li>
+        <li><strong>Trapped ions:</strong> Floquet SPT, dynamical topological phases</li>
+      </ul>
+    </div>
+
+    <h2>Connection to Quantum Information</h2>
+
+    <div class="info-box">
+      <h3>SPT States as Quantum Resources</h3>
+
+      <h4>Measurement-Based Quantum Computation</h4>
+      <p>
+        Many SPT states serve as resources for quantum computation:
+      </p>
+      <ul>
+        <li><strong>1D Cluster state:</strong> Universal resource for 1-qubit gates (ℤ₂ SPT)</li>
+        <li><strong>2D Cluster state:</strong> Universal quantum computation via single-qubit measurements</li>
+        <li>SPT structure ensures: Quantum correlations + classical processing = quantum computing power</li>
+      </ul>
+
+      <h4>Quantum Error Correction</h4>
+      <p>
+        Edge modes provide natural error-protected qubits:
+      </p>
+      <ul>
+        <li>Spatially separated edge modes → topological protection</li>
+        <li>Symmetry protection → robust against symmetric noise</li>
+        <li>Example: Majorana fermions for topological quantum computing</li>
+      </ul>
+
+      <h4>Entanglement Properties</h4>
+      <ul>
+        <li><strong>Resource theory:</strong> SPT states have "useful" entanglement despite being SRE</li>
+        <li><strong>Quantum communication:</strong> Edge modes enable robust quantum channels</li>
+        <li><strong>Many-body magic:</strong> SPT states exhibit computational complexity beyond stabilizer formalism</li>
+      </ul>
+    </div>
+
+    <h2>Mathematical Framework Preview</h2>
+
+    <div class="info-box">
+      <h3>Group Cohomology Classification</h3>
+      <p>
+        The complete classification of SPT phases relies on group cohomology theory:
+      </p>
+
+      <h4>Statement of Classification Theorem</h4>
+      <div class="equation">
+        {d-dimensional bosonic SPT with symmetry G} ↔ H^{d+1}(G, U(1))
+      </div>
+
+      <h4>Interpretation</h4>
+      <ul>
+        <li><strong>H^{d+1}(G,U(1)):</strong> (d+1)-th cohomology group of G with U(1) coefficients</li>
+        <li><strong>Cocycle ω(g₁,...,g_{d+1}):</strong> Encodes how symmetry acts on d-dimensional boundary</li>
+        <li><strong>Cocycle condition:</strong> Ensures consistency (no anomaly in (d+1)-dimensional bulk)</li>
+        <li><strong>Coboundary (trivial cocycle):</strong> Can be gauged away → trivial SPT</li>
+      </ul>
+
+      <h4>Why (d+1) Cohomology?</h4>
+      <p>
+        Dimensional shift reflects bulk-boundary correspondence:
+      </p>
+      <ul>
+        <li>d-dimensional bulk boundary = (d-1)-dimensional edge</li>
+        <li>Edge symmetry action characterized by d-cocycle</li>
+        <li>Bulk SPT "fills in" the edge → (d+1)-cocycle</li>
+      </ul>
+
+      <h4>Computing Cohomology Groups</h4>
+      <p>
+        For finite groups, use Künneth formula and standard results:
+      </p>
+      <div class="equation">
+        H^n(ℤ₂, U(1)) = ℤ₂  for n ≥ 1
+      </div>
+      <div class="equation">
+        H^n(U(1), U(1)) = ℤ  for n = 1,2,...
+      </div>
+      <div class="equation">
+        H^n(G₁ × G₂, U(1)) = [H^n(G₁,U(1)) ⊗ H^n(G₂,U(1))] ⊕ [H^{n-1}(G₁,U(1)) ⊗ H^{n-1}(G₂,U(1))]
+      </div>
+    </div>
+
     <h2>Chapter Organization</h2>
 
     <div class="info-box">
@@ -209,20 +509,78 @@
         <li><strong>Group cohomology:</strong> H^n(G,U(1)) classifies n-dimensional SPT with symmetry G</li>
         <li><strong>Cocycle conditions:</strong> Functions ω(g₁,g₂,...) satisfying consistency relations</li>
         <li><strong>Matrix Product States:</strong> Efficient representation encoding symmetry structure</li>
+        <li><strong>Projective representations:</strong> How symmetry acts on edge states</li>
         <li><strong>Edge theories:</strong> Conformal field theories protected by symmetry</li>
+        <li><strong>Fixed-point wavefunctions:</strong> Exactly solvable SPT models from cocycles</li>
       </ul>
 
       <h4>Physical Probes</h4>
       <ul>
-        <li><strong>Entanglement spectrum:</strong> Reveals edge state structure</li>
-        <li><strong>String order parameters:</strong> Non-local detectors of SPT order</li>
-        <li><strong>Edge spectroscopy:</strong> Direct probe of protected boundary modes</li>
-        <li><strong>Symmetry twists:</strong> Defects that distinguish SPT phases</li>
+        <li><strong>Entanglement spectrum:</strong> Reveals edge state structure via Li-Haldane correspondence</li>
+        <li><strong>String order parameters:</strong> Nonlocal detectors of SPT order (den Nijs-Rommelse)</li>
+        <li><strong>Edge spectroscopy:</strong> Direct probe of protected boundary modes (STM, ARPES)</li>
+        <li><strong>Symmetry twists:</strong> Flux insertion/defects that distinguish SPT phases</li>
+        <li><strong>Many-body Berry phase:</strong> Topological response to symmetry operations</li>
+        <li><strong>Modular transformations:</strong> For systems on torus, partition function behavior</li>
+      </ul>
+    </div>
+
+    <h2>Generalizations and Extensions</h2>
+
+    <div class="highlight-box">
+      <h4>Beyond Basic SPT</h4>
+      <p>
+        The SPT framework has been extended in numerous directions:
+      </p>
+
+      <ul>
+        <li><strong>Crystalline SPT:</strong> Protected by space group symmetries (reflection, rotation, translation)
+          <ul>
+            <li>Classification involves spatial cohomology</li>
+            <li>Examples: Topological crystalline insulators (SnTe)</li>
+          </ul>
+        </li>
+
+        <li><strong>Higher-order SPT:</strong> (d-n)-dimensional boundary modes in d dimensions
+          <ul>
+            <li>2D HOTI: 0D corner modes instead of 1D edge</li>
+            <li>Protected by combinations of symmetries (C₄ rotation + reflection)</li>
+          </ul>
+        </li>
+
+        <li><strong>Floquet SPT:</strong> Periodically driven systems
+          <ul>
+            <li>Time-periodic Hamiltonian H(t+T) = H(t)</li>
+            <li>New topological phases with no static analog</li>
+            <li>Classification by Floquet cohomology</li>
+          </ul>
+        </li>
+
+        <li><strong>Subsystem SPT:</strong> Protected by subsystem symmetries
+          <ul>
+            <li>Symmetries act on lines/planes, not entire system</li>
+            <li>Fracton phases as extreme example</li>
+          </ul>
+        </li>
+
+        <li><strong>Interacting fermionic SPT:</strong> Beyond free fermion classification
+          <ul>
+            <li>Group super-cohomology H^{d+1}(G_f, U(1))</li>
+            <li>New phases impossible in free fermion systems</li>
+          </ul>
+        </li>
+
+        <li><strong>Gauge SPT:</strong> SPT with gauge symmetry
+          <ul>
+            <li>Connections to anomalies in gauge theories</li>
+            <li>Bulk-boundary via anomaly inflow</li>
+          </ul>
+        </li>
       </ul>
     </div>
 
     <p>
-      With this foundation, we now dive into the detailed study of SPT phases, starting with the simplest case: 1D bosonic systems where the complete classification is known and intuitive.
+      With this comprehensive foundation, we now dive into the detailed study of SPT phases, starting with the simplest case: 1D bosonic systems where the complete classification is known and intuitive. These 1D examples will build the intuition needed for understanding the more complex higher-dimensional and fermionic cases.
     </p>
 
   </div>
