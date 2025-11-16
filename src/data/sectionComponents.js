@@ -140,6 +140,18 @@ export const sectionComponentMap = {
   '9.5.1': () => import('../components/sections/Chapter_9_5_1.vue'),
   '9.5.2': () => import('../components/sections/Chapter_9_5_2.vue'),
   '9.6': () => import('../components/sections/Chapter_9_6.vue'),
+
+  // Chapter 11
+  '11.1.1': () => import('../components/sections/Chapter_11_1_1.vue'),
+  '11.1.2': () => import('../components/sections/Chapter_11_1_2.vue'),
+  '11.1.3': () => import('../components/sections/Chapter_11_1_3.vue'),
+  '11.1.4': () => import('../components/sections/Chapter_11_1_4.vue'),
+  '11.2': () => import('../components/sections/Chapter_11_2.vue'),
+  '11.3.1': () => import('../components/sections/Chapter_11_3_1.vue'),
+  '11.3.2': () => import('../components/sections/Chapter_11_3_2.vue'),
+  '11.3.3': () => import('../components/sections/Chapter_11_3_3.vue'),
+  '11.3.4': () => import('../components/sections/Chapter_11_3_4.vue'),
+  '11.3.5': () => import('../components/sections/Chapter_11_3_5.vue'),
 };
 
 // 获取section的标题
@@ -285,6 +297,18 @@ export function getSectionTitle(sectionId) {
     '9.5.1': '9.5.1 MERA',
     '9.5.2': '9.5.2 Tree Tensor Network',
     '9.6': '9.6 Summary and Further Reading',
+
+    // Chapter 11
+    '11.1.1': '11.1.1 Mechanical Revolution',
+    '11.1.2': '11.1.2 Electromagnetic Revolution',
+    '11.1.3': '11.1.3 Relativity Revolution',
+    '11.1.4': '11.1.4 Quantum Revolution',
+    '11.2': '11.2 It from Qubit, Not Bit',
+    '11.3.1': '11.3.1 Two Approaches',
+    '11.3.2': '11.3.2 Principle of Emergence',
+    '11.3.3': '11.3.3 String-Net Liquid of Qubits Unifies Light and Electrons',
+    '11.3.4': '11.3.4 Evolving Views for Light and Gauge Theories',
+    '11.3.5': '11.3.5 Where to Find Long-Range Entangled Quantum Matter?',
   };
   return titles[sectionId] || sectionId;
 }
