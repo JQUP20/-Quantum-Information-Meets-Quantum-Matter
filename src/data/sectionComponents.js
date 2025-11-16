@@ -125,6 +125,21 @@ export const sectionComponentMap = {
   '8.3': () => import('../components/sections/Chapter_8_3.vue'),
   '8.4': () => import('../components/sections/Chapter_8_4.vue'),
   '8.5': () => import('../components/sections/Chapter_8_5.vue'),
+
+  // Chapter 9
+  '9.1': () => import('../components/sections/Chapter_9_1.vue'),
+  '9.2.1': () => import('../components/sections/Chapter_9_2_1.vue'),
+  '9.2.2': () => import('../components/sections/Chapter_9_2_2.vue'),
+  '9.3.1': () => import('../components/sections/Chapter_9_3_1.vue'),
+  '9.3.2': () => import('../components/sections/Chapter_9_3_2.vue'),
+  '9.3.3': () => import('../components/sections/Chapter_9_3_3.vue'),
+  '9.4.1': () => import('../components/sections/Chapter_9_4_1.vue'),
+  '9.4.2': () => import('../components/sections/Chapter_9_4_2.vue'),
+  '9.4.3': () => import('../components/sections/Chapter_9_4_3.vue'),
+  '9.4.4': () => import('../components/sections/Chapter_9_4_4.vue'),
+  '9.5.1': () => import('../components/sections/Chapter_9_5_1.vue'),
+  '9.5.2': () => import('../components/sections/Chapter_9_5_2.vue'),
+  '9.6': () => import('../components/sections/Chapter_9_6.vue'),
 };
 
 // 获取section的标题
@@ -255,6 +270,21 @@ export function getSectionTitle(sectionId) {
     '8.3': '8.3 Renormalization Group Transformation on MPS',
     '8.4': '8.4 No Intrinsic Topological Order in 1D Bosonic Systems',
     '8.5': '8.5 Summary and Further Reading',
+
+    // Chapter 9
+    '9.1': '9.1 Introduction',
+    '9.2.1': '9.2.1 Definition and Examples',
+    '9.2.2': '9.2.2 Properties',
+    '9.3.1': '9.3.1 Ising Model',
+    '9.3.2': '9.3.2 Structural Properties',
+    '9.3.3': '9.3.3 Symmetry Breaking and Block Structure',
+    '9.4.1': '9.4.1 Toric Code Model',
+    '9.4.2': '9.4.2 Structural Properties',
+    '9.4.3': '9.4.3 Topological Property from Local Tensors',
+    '9.4.4': '9.4.4 Stability Under Symmetry Constraint',
+    '9.5.1': '9.5.1 MERA',
+    '9.5.2': '9.5.2 Tree Tensor Network',
+    '9.6': '9.6 Summary and Further Reading',
   };
   return titles[sectionId] || sectionId;
 }
