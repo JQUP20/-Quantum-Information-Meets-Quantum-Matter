@@ -93,6 +93,22 @@ export const sectionComponentMap = {
   '6.9.4': () => import('../components/sections/Chapter_6_9_4.vue'),
   '6.9.5': () => import('../components/sections/Chapter_6_9_5.vue'),
   '6.10': () => import('../components/sections/Chapter_6_10.vue'),
+
+  // Chapter 7
+  '7.1': () => import('../components/sections/Chapter_7_1.vue'),
+  '7.2': () => import('../components/sections/Chapter_7_2.vue'),
+  '7.3.1': () => import('../components/sections/Chapter_7_3_1.vue'),
+  '7.3.2': () => import('../components/sections/Chapter_7_3_2.vue'),
+  '7.3.3': () => import('../components/sections/Chapter_7_3_3.vue'),
+  '7.4.1': () => import('../components/sections/Chapter_7_4_1.vue'),
+  '7.4.2': () => import('../components/sections/Chapter_7_4_2.vue'),
+  '7.4.3': () => import('../components/sections/Chapter_7_4_3.vue'),
+  '7.5.1': () => import('../components/sections/Chapter_7_5_1.vue'),
+  '7.5.2': () => import('../components/sections/Chapter_7_5_2.vue'),
+  '7.5.3': () => import('../components/sections/Chapter_7_5_3.vue'),
+  '7.6': () => import('../components/sections/Chapter_7_6.vue'),
+  '7.7': () => import('../components/sections/Chapter_7_7.vue'),
+  '7.8': () => import('../components/sections/Chapter_7_8.vue'),
 };
 
 // 获取section的标题
@@ -191,6 +207,22 @@ export function getSectionTitle(sectionId) {
     '6.9.4': '6.9.4 Three Types of String Operators',
     '6.9.5': '6.9.5 Statistics of Ends of Strings',
     '6.10': '6.10 Summary and Further Reading',
+
+    // Chapter 7
+    '7.1': '7.1 Introduction',
+    '7.2': '7.2 Quantum Phases and Phase Transitions',
+    '7.3.1': '7.3.1 Local Unitary Evolutions in Ground States',
+    '7.3.2': '7.3.2 Local Unitary Quantum Circuits',
+    '7.3.3': '7.3.3 Wavefunction Renormalization',
+    '7.4.1': '7.4.1 Gapped Quantum Phases',
+    '7.4.2': '7.4.2 Gapped Quantum Liquid Phase',
+    '7.4.3': '7.4.3 Topological Order',
+    '7.5.1': '7.5.1 Universality Classes of Gapped Quantum Liquids',
+    '7.5.2': '7.5.2 Universality Classes of Symmetry-Breaking Order',
+    '7.5.3': '7.5.3 Stochastic Local Transformations and LRE',
+    '7.6': '7.6 Symmetry-Protected Topological Order',
+    '7.7': '7.7 A New Chapter in Physics',
+    '7.8': '7.8 Summary and Further Reading',
   };
   return titles[sectionId] || sectionId;
 }
