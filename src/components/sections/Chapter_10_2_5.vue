@@ -434,7 +434,7 @@
       </p>
       <ul>
         <li>p=d+1, q=0: Strong SPT (intrinsic d-dimensional)</li>
-        <li>p<d+1, q>0: Weak SPT (layered lower-dimensional)</li>
+        <li>p &lt; d+1, q &gt; 0: Weak SPT (layered lower-dimensional)</li>
       </ul>
     </div>
 
