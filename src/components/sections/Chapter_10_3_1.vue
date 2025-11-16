@@ -153,9 +153,9 @@
 
       <h4>Topological Phase Transition</h4>
       <ul>
-        <li><strong>h > J:</strong> Trivial phase, gapped</li>
+        <li><strong>h &gt; J:</strong> Trivial phase, gapped</li>
         <li><strong>h = J:</strong> Critical point, gapless</li>
-        <li><strong>h < J:</strong> Topological phase, gapped with Majorana edge modes</li>
+        <li><strong>h &lt; J:</strong> Topological phase, gapped with Majorana edge modes</li>
       </ul>
     </div>
 
@@ -312,10 +312,10 @@
         In 2D, the Jordan-Wigner string becomes a surface:
       </p>
       <div class="equation">
-        c_{x,y} = exp(iπ ∑_{(x',y')<(x,y)} n_{x',y'}) σ^-_{x,y}
+        c_{x,y} = exp(iπ ∑_{(x',y')&lt;(x,y)} n_{x',y'}) σ^-_{x,y}
       </div>
       <p>
-        where (x',y') < (x,y) defines a path from origin to (x,y).
+        where (x',y') &lt; (x,y) defines a path from origin to (x,y).
       </p>
 
       <h4>Issues in 2D</h4>

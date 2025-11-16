@@ -127,7 +127,7 @@
         Chern number C counts:
       </p>
       <ul>
-        <li><strong>Number of chiral edge modes:</strong> C right-moving modes (or |C| left-moving if C<0)</li>
+        <li><strong>Number of chiral edge modes:</strong> C right-moving modes (or |C| left-moving if C&lt;0)</li>
         <li><strong>Hall conductance:</strong> σ_xy = C e²/h (quantized!)</li>
         <li><strong>Topological charge:</strong> Winding of Bloch wavefunctions over BZ</li>
       </ul>
@@ -139,7 +139,7 @@
       <ul>
         <li>Bulk: Gapped, C-fold degenerate ground state (on torus)</li>
         <li>Edge: C gapless chiral fermion modes</li>
-        <li>Chirality: All modes move in same direction (right for C>0)</li>
+        <li>Chirality: All modes move in same direction (right for C&gt;0)</li>
       </ul>
     </div>
 
@@ -399,12 +399,12 @@
 
       <h4>Inverse</h4>
       <p>
-        Negative Chern number C<0:
+        Negative Chern number C&lt;0:
       </p>
       <ul>
         <li>Corresponds to left-moving (instead of right-moving) edge modes</li>
         <li>Hall conductance σ_xy = C e²/h is negative</li>
-        <li>Related to C>0 by time-reversal or reversal of B</li>
+        <li>Related to C&gt;0 by time-reversal or reversal of B</li>
       </ul>
     </div>
 
