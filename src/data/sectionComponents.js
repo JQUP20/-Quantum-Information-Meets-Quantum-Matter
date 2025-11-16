@@ -109,6 +109,22 @@ export const sectionComponentMap = {
   '7.6': () => import('../components/sections/Chapter_7_6.vue'),
   '7.7': () => import('../components/sections/Chapter_7_7.vue'),
   '7.8': () => import('../components/sections/Chapter_7_8.vue'),
+
+  // Chapter 8
+  '8.1': () => import('../components/sections/Chapter_8_1.vue'),
+  '8.2.1': () => import('../components/sections/Chapter_8_2_1.vue'),
+  '8.2.2': () => import('../components/sections/Chapter_8_2_2.vue'),
+  '8.2.3': () => import('../components/sections/Chapter_8_2_3.vue'),
+  '8.2.4': () => import('../components/sections/Chapter_8_2_4.vue'),
+  '8.2.5': () => import('../components/sections/Chapter_8_2_5.vue'),
+  '8.2.6': () => import('../components/sections/Chapter_8_2_6.vue'),
+  '8.2.7': () => import('../components/sections/Chapter_8_2_7.vue'),
+  '8.2.8': () => import('../components/sections/Chapter_8_2_8.vue'),
+  '8.2.9': () => import('../components/sections/Chapter_8_2_9.vue'),
+  '8.2.10': () => import('../components/sections/Chapter_8_2_10.vue'),
+  '8.3': () => import('../components/sections/Chapter_8_3.vue'),
+  '8.4': () => import('../components/sections/Chapter_8_4.vue'),
+  '8.5': () => import('../components/sections/Chapter_8_5.vue'),
 };
 
 // 获取section的标题
@@ -223,6 +239,22 @@ export function getSectionTitle(sectionId) {
     '7.6': '7.6 Symmetry-Protected Topological Order',
     '7.7': '7.7 A New Chapter in Physics',
     '7.8': '7.8 Summary and Further Reading',
+
+    // Chapter 8
+    '8.1': '8.1 Introduction',
+    '8.2.1': '8.2.1 Definition and Examples',
+    '8.2.2': '8.2.2 Double Tensor',
+    '8.2.3': '8.2.3 Calculation of Norm and Physical Observables',
+    '8.2.4': '8.2.4 Correlation Length',
+    '8.2.5': '8.2.5 Entanglement Area Law',
+    '8.2.6': '8.2.6 Gauge Degree of Freedom',
+    '8.2.7': '8.2.7 Projected Entangled Pair Picture',
+    '8.2.8': '8.2.8 Canonical Form',
+    '8.2.9': '8.2.9 Injectivity',
+    '8.2.10': '8.2.10 Parent Hamiltonian',
+    '8.3': '8.3 Renormalization Group Transformation on MPS',
+    '8.4': '8.4 No Intrinsic Topological Order in 1D Bosonic Systems',
+    '8.5': '8.5 Summary and Further Reading',
   };
   return titles[sectionId] || sectionId;
 }
